@@ -17,9 +17,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _gravity = 20f;
     [Header("Camera Settings")]
-    [SerializeField][Range(0,1)]
+    [SerializeField][Range(0.1f,1)]
     private float _horizontalSensitivity;
-    [SerializeField][Range(0, 1)]
+    [SerializeField][Range(0.1f, 1)]
     private float _verticalSensitivity;
 
 
@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
         //look up-down
         Vector3 currentRoatationCamera = _playerCamera.transform.localEulerAngles;
         currentRoatationCamera.x -= mouseY * _verticalSensitivity;
+        currentRoatationCamera.x = Mathf.Clamp( currentRoatationCamera.x, 0f, 26f);
         _playerCamera.transform.localRotation = Quaternion.AngleAxis(currentRoatationCamera.x, Vector3.right);
     }
 }
