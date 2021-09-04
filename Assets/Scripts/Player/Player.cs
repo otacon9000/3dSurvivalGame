@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     private CharacterController _cc;
     private Vector3 _direction = Vector3.zero;
@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     private Camera _playerCamera;
 
     [Header("Player Settings")]
+    [SerializeField]
+    private int _maxHealth;
+    [SerializeField]
+    private int _minHealth;
     [SerializeField]
     private float _speed = 5;
     [SerializeField]
@@ -22,18 +26,22 @@ public class Player : MonoBehaviour
     [SerializeField][Range(0.1f, 1)]
     private float _verticalSensitivity;
 
+    public int Health { get; set; }
 
+    public int health;
 
     private void Start()
     {
         _cc = GetComponent<CharacterController>();
         _playerCamera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
+        Health = _maxHealth;
+        
     }
 
     private void Update()
     {
-
+        health = Health;
         Movement();
 
         CameraController();
@@ -81,5 +89,17 @@ public class Player : MonoBehaviour
         currentRoatationCamera.x -= mouseY * _verticalSensitivity;
         currentRoatationCamera.x = Mathf.Clamp( currentRoatationCamera.x, 0f, 26f);
         _playerCamera.transform.localRotation = Quaternion.AngleAxis(currentRoatationCamera.x, Vector3.right);
+    }
+
+    public void Damage(int damageAmount)
+    {
+        Health -= damageAmount;
+        
+
+        if (Health < _minHealth)
+        {
+            Debug.Log(gameObject.name + " is dead");
+            Destroy(this.gameObject);
+        }
     }
 }

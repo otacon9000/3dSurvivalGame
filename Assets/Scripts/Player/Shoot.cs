@@ -5,6 +5,8 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     private Camera mainCamera;
+    [SerializeField]
+    private int _damageAmount = 1;
     
     void Start()
     {
@@ -27,6 +29,14 @@ public class Shoot : MonoBehaviour
             if (Physics.Raycast(rayOrigin, out hitInfo))
             {
                 Debug.Log(hitInfo.collider.name);
+                IDamageable hit = hitInfo.collider.GetComponent<IDamageable>();
+
+                if (hit != null)
+                {
+                    hit.Damage(_damageAmount);
+                }
+
+
             }
         }
     }
