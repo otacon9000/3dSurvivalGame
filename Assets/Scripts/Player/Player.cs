@@ -25,10 +25,11 @@ public class Player : MonoBehaviour, IDamageable
     private float _horizontalSensitivity;
     [SerializeField][Range(0.1f, 1)]
     private float _verticalSensitivity;
+    private float _yVelocity;
 
     public int Health { get; set; }
 
-    public int health;
+
 
     private void Start()
     {
@@ -41,8 +42,9 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        health = Health;
+      
         Movement();
+        ///*CalculateMovement*/();
 
         CameraController();
 
@@ -53,9 +55,11 @@ public class Player : MonoBehaviour, IDamageable
       
     }
 
+
+
     private void Movement()
     {
-        if (_cc.isGrounded)
+        if (_cc.isGrounded == true)
         {
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
@@ -63,17 +67,22 @@ public class Player : MonoBehaviour, IDamageable
             _direction = new Vector3(horizontalInput, 0, verticalInput);
             _velocity = _direction * _speed;
 
+            _velocity = transform.TransformDirection(_velocity);
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                _velocity.y = _jumpHeight;
+                _yVelocity = _jumpHeight;
             }
         }
-        _velocity.y -= _gravity * Time.deltaTime;
-        _velocity = transform.TransformDirection(_velocity);
-        _cc.Move(_velocity * Time.deltaTime);
+        else
+        {
+            _yVelocity -= _gravity;
+        }
 
+        _velocity.y = _yVelocity;
+        _cc.Move(_velocity * Time.deltaTime);
     }
-    
+
     private void CameraController()
     {
         float mouseX = Input.GetAxis("Mouse X");
