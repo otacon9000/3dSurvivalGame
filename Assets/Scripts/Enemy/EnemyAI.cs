@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour, IDamageable
 {
+
+    public enum EnemyState 
+    {
+        Idle,
+        Chase,
+        Attack
+    }
+
+
     private CharacterController _enemyCC;
     
     private Vector3 _velocity = Vector3.zero;
@@ -18,6 +27,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
     private float _gravity = 20f;
     [SerializeField]
     private int _enemyDamage = 1;
+    [SerializeField]
+    private float _attackDelay = 1.0f;
+    private float _nextAttack;
+         
+
+    private IDamageable _attackTarget = null;
+    [SerializeField]
+    private EnemyState _currentState = EnemyState.Chase;
 
     //only for test
     public GameObject target;
@@ -32,23 +49,55 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        CalculateMovement();
+        switch (_currentState)
+        {
+            case EnemyState.Idle:
+                break;
+            case EnemyState.Chase:
+                CalculateMovement();
+                break;
+            case EnemyState.Attack:
+                Attack();
+                break;
+            default:
+                break;
+        }
     }
 
     void CalculateMovement()
     {
         if (_enemyCC.isGrounded)
         {
-            Vector3 direction = target.transform.position - transform.position;
-            direction.Normalize();
-            direction.y = 0;
-            _velocity = direction * _speed;
-            transform.rotation = Quaternion.LookRotation(direction);
+            if (target != null)
+            {
+                Vector3 direction = target.transform.position - transform.position;
+                direction.Normalize();
+                direction.y = 0;
+                _velocity = direction * _speed;
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
+            else
+            {
+                return;
+            }
+
         }
        
         _velocity.y -= _gravity * Time.deltaTime;
         _enemyCC.Move(_velocity * Time.deltaTime);
 
+    }
+
+    void Attack()
+    {
+        if (_attackTarget != null)
+        {
+            if (Time.time > _nextAttack)
+            {
+                _attackTarget.Damage(_enemyDamage);
+                _nextAttack = Time.time + _attackDelay;
+            }
+        }
     }
 
     public void Damage(int damageAmount)
@@ -65,16 +114,22 @@ public class EnemyAI : MonoBehaviour, IDamageable
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.CompareTag("Player"))
-        {   
-            Debug.Log("collision with " + other.gameObject.name);
-            IDamageable hit = other.transform.GetComponent<IDamageable>();
-
-            if (hit != null)
-            {
-                hit.Damage(_enemyDamage);
-            }
+        {
+            _currentState = EnemyState.Attack;
+            _attackTarget = other.GetComponent<IDamageable>();
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.CompareTag("Player"))
+        {
+            _currentState = EnemyState.Chase;
+
+        }
+    }
+
+
 
 }
 
