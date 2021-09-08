@@ -7,7 +7,9 @@ public class Shoot : MonoBehaviour
     private Camera mainCamera;
     [SerializeField]
     private int _damageAmount = 1;
-    
+    [SerializeField]
+    private GameObject[] _bloodPrefabVFX;
+     
     void Start()
     {
         mainCamera = Camera.main;
@@ -33,10 +35,9 @@ public class Shoot : MonoBehaviour
 
                 if (hit != null)
                 {
+                    Instantiate(_bloodPrefabVFX[1], hitInfo.point, Quaternion.LookRotation(hitInfo.normal), hitInfo.transform);
                     hit.Damage(_damageAmount);
                 }
-
-
             }
         }
     }

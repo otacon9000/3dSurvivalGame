@@ -313,11 +313,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1177184011, guid: 48ebe9b3a6a23d84fbd5b3f5b3449625, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2826952360288833205, guid: 48ebe9b3a6a23d84fbd5b3f5b3449625,
         type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1686424664}
+    - target: {fileID: 2826952360288833205, guid: 48ebe9b3a6a23d84fbd5b3f5b3449625,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2826952360288833205, guid: 48ebe9b3a6a23d84fbd5b3f5b3449625,
+        type: 3}
+      propertyPath: _maxHealth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4191612791221159981, guid: 48ebe9b3a6a23d84fbd5b3f5b3449625,
         type: 3}
       propertyPath: m_Name
@@ -383,7 +397,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1177184011, guid: 48ebe9b3a6a23d84fbd5b3f5b3449625, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 48ebe9b3a6a23d84fbd5b3f5b3449625, type: 3}
 --- !u!1 &963194225
 GameObject:
@@ -579,6 +594,7 @@ GameObject:
   - component: {fileID: 1239763665}
   - component: {fileID: 1239763664}
   - component: {fileID: 1239763663}
+  - component: {fileID: 1239763662}
   m_Layer: 0
   m_Name: Cube 3
   m_TagString: Untagged
@@ -586,6 +602,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1239763662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239763661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4821932414cdbb44b9de521a903954fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 1000
+  _minHealth: 0
+  _speed: 0
+  _gravity: 0
+  _enemyDamage: 1
+  _attackDelay: 1
+  _currentState: 0
+  target: {fileID: 0}
 --- !u!65 &1239763663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -812,6 +848,7 @@ GameObject:
   - component: {fileID: 1626822330}
   - component: {fileID: 1626822329}
   - component: {fileID: 1626822328}
+  - component: {fileID: 1626822327}
   m_Layer: 0
   m_Name: Cube 1
   m_TagString: Untagged
@@ -819,6 +856,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1626822327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626822326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4821932414cdbb44b9de521a903954fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 1000
+  _minHealth: 0
+  _speed: 0
+  _gravity: 0
+  _enemyDamage: 1
+  _attackDelay: 1
+  _currentState: 0
+  target: {fileID: 0}
 --- !u!65 &1626822328
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1006,7 +1063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a14937a67e0464aa11b8ed86b5a160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 5
   _minHealth: 1
   _speed: 7
   _jumpHeight: 50
@@ -1026,6 +1083,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageAmount: 1
+  _bloodPrefabVFX:
+  - {fileID: 5192175068684042784, guid: 89c8bc12c826045588d79985900e38f1, type: 3}
+  - {fileID: 8729043021112652020, guid: 819c6268a8e154147984aa729b6f126b, type: 3}
+  - {fileID: 406282296112420188, guid: a1f5bfb389b984996bae2f3fe9ac9021, type: 3}
+  - {fileID: 3218514044447254170, guid: 3b0c528ce140b47c1be35eba9e9f82b2, type: 3}
+--- !u!1 &1826046883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4191612791221159981, guid: 48ebe9b3a6a23d84fbd5b3f5b3449625,
+    type: 3}
+  m_PrefabInstance: {fileID: 884406938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1826046884
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826046883}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 1, z: 1.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1901254480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,6 +1119,7 @@ GameObject:
   - component: {fileID: 1901254484}
   - component: {fileID: 1901254483}
   - component: {fileID: 1901254482}
+  - component: {fileID: 1901254481}
   m_Layer: 0
   m_Name: Cube 2
   m_TagString: Untagged
@@ -1045,6 +1127,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1901254481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901254480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4821932414cdbb44b9de521a903954fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 1000
+  _minHealth: 0
+  _speed: 0
+  _gravity: 0
+  _enemyDamage: 1
+  _attackDelay: 1
+  _currentState: 0
+  target: {fileID: 0}
 --- !u!65 &1901254482
 BoxCollider:
   m_ObjectHideFlags: 0

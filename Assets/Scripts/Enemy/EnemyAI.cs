@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour, IDamageable
 {
 
-    public enum EnemyState 
+    public enum EnemyState
     {
         Idle,
         Chase,
@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
 
     private CharacterController _enemyCC;
-    
+
     private Vector3 _velocity = Vector3.zero;
     [Header("Enemy Settings")]
     [SerializeField]
@@ -30,9 +30,9 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField]
     private float _attackDelay = 1.0f;
     private float _nextAttack;
-         
 
-    private IDamageable _attackTarget = null;
+
+    public IDamageable AttackTarget { get; set; }
     [SerializeField]
     private EnemyState _currentState = EnemyState.Chase;
 
@@ -90,11 +90,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     void Attack()
     {
-        if (_attackTarget != null)
+        if (AttackTarget != null)
         {
             if (Time.time > _nextAttack)
             {
-                _attackTarget.Damage(_enemyDamage);
+                AttackTarget.Damage(_enemyDamage);
                 _nextAttack = Time.time + _attackDelay;
             }
         }
@@ -111,23 +111,16 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void StartAttack()
     {
-        if (other.transform.CompareTag("Player"))
-        {
-            _currentState = EnemyState.Attack;
-            _attackTarget = other.GetComponent<IDamageable>();
-        }
+        _currentState = EnemyState.Attack;
     }
 
-    private void OnTriggerExit(Collider other)
+    public void StopAttack()
     {
-        if (other.transform.CompareTag("Player"))
-        {
-            _currentState = EnemyState.Chase;
-
-        }
+        _currentState = EnemyState.Chase;
     }
+
 
 
 
