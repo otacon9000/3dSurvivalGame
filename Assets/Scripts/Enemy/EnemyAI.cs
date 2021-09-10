@@ -74,7 +74,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
                 direction.Normalize();
                 direction.y = 0;
                 _velocity = direction * _speed;
-                transform.rotation = Quaternion.LookRotation(direction);
+                //transform.rotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * _speed);
             }
             else
             {
