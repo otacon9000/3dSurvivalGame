@@ -21,9 +21,11 @@ namespace GameDevHQ.FileBase.Plugins.FPS_Character_Controller
 
         private CharacterController _controller; //reference variable to the character controller component
         private float _yVelocity = 0.0f; //cache our y velocity
-        
 
-        [Header("Headbob Settings")]       
+
+        [Header("Headbob Settings")]
+        [SerializeField]
+        private bool _headBobActive = false;
         [SerializeField][Tooltip("Smooth out the transition from moving to not moving")]
         private float _smooth = 20.0f; //smooth out the transition from moving to not moving
         [SerializeField][Tooltip("How quickly the player head bobs")]
@@ -126,6 +128,9 @@ namespace GameDevHQ.FileBase.Plugins.FPS_Character_Controller
 
         void HeadBobbing()
         {
+            if (_headBobActive == true)
+                return;
+
             float h = Input.GetAxis("Horizontal"); //horizontal inputs (a, d, leftarrow, rightarrow)
             float v = Input.GetAxis("Vertical"); //veritical inputs (w, s, uparrow, downarrow)
 
