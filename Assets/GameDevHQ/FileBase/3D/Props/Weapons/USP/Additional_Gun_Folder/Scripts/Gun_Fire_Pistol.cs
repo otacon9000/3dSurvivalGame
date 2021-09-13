@@ -61,6 +61,11 @@ public class Gun_Fire_Pistol : MonoBehaviour
                 _anim.SetBool("Fire", false);
             }
         }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            _anim.SetTrigger("Reload");
+        }
     }
 
     public void FireGunParticles()
