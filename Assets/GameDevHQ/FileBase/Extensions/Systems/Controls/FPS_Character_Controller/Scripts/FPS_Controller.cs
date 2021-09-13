@@ -83,7 +83,7 @@ namespace GameDevHQ.FileBase.Plugins.FPS_Character_Controller
                 }
                 else
                 {
-                    _controller.height = 1.0f;
+                    //_controller.height = 1.0f;
                 }
                 
             }
@@ -128,7 +128,7 @@ namespace GameDevHQ.FileBase.Plugins.FPS_Character_Controller
 
         void HeadBobbing()
         {
-            if (_headBobActive == true)
+            if (_headBobActive == false)
                 return;
 
             float h = Input.GetAxis("Horizontal"); //horizontal inputs (a, d, leftarrow, rightarrow)
